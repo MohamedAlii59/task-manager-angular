@@ -1,0 +1,7 @@
+@if (notDoneTasks.length === 0) {
+  <p class="text-muted text-center py-4">No pending tasks. Great job!</p>
+} @else {
+  @for (tsk of notDoneTasks; track tsk.id) {
+    <Task-card [task]="tsk" (taskDelete)="onDelete.emit($event)" />
+  }
+}

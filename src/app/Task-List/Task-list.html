@@ -1,0 +1,29 @@
+<div class="container mt-4">
+  <h3 class="mb-3">Task List</h3>
+
+  <ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="tab === 'all'" (click)="tab = 'all'">
+        All <span class="badge bg-secondary ms-1">{{ taskListInChild.length }}</span>
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="tab === 'done'" (click)="tab = 'done'">
+        Done <span class="badge bg-success ms-1">{{ doneTasks.length }}</span>
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="tab === 'not-done'" (click)="tab = 'not-done'">
+        Pending <span class="badge bg-warning text-dark ms-1">{{ notDoneTasks.length }}</span>
+      </button>
+    </li>
+  </ul>
+
+  @if (tab === 'all') {
+    <app-all-tasks [allTasks]="taskListInChild" (onDelete)="deleteTask($event)" />
+  } @else if (tab === 'done') {
+    <app-done-tasks [doneTasks]="doneTasks" (onDelete)="deleteTask($event)" />
+  } @else {
+    <app-not-done-tasks [notDoneTasks]="notDoneTasks" (onDelete)="deleteTask($event)" />
+  }
+</div>

@@ -1,0 +1,8 @@
+<body>
+  <div class="page">
+    <Carousel></Carousel>
+    <Task-comp (sendTaskToParent)="addToTaskList($event)" />
+    <Task-list [taskListInChild]="taskList" />
+    <Footer-comp />
+  </div>
+</body>

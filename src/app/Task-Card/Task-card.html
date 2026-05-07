@@ -1,0 +1,113 @@
+<div
+  class="card mb-3 task-card"
+  [class.border-success]="task.isDone"
+  [class.border-secondary]="!task.isDone"
+>
+  <div class="card-body">
+    @if (!isEditing) {
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h5 class="card-title mb-1">
+            {{ task.title }}
+            <span
+              class="badge ms-2"
+              [class.bg-success]="task.isDone"
+              [class.bg-warning]="!task.isDone"
+              [class.text-dark]="!task.isDone"
+            >
+              {{ task.isDone ? 'Done' : 'Pending' }}
+            </span>
+            <span
+              class="badge ms-1"
+              [class.bg-danger]="task.priority === 'high'"
+              [class.bg-warning]="task.priority === 'medium'"
+              [class.text-dark]="task.priority === 'medium'"
+              [class.bg-secondary]="task.priority === 'low'"
+            >
+              {{ task.priority | titlecase }}
+            </span>
+          </h5>
+          <p class="card-text text-muted mb-1">{{ task.description }}</p>
+          <small class="text-muted">
+            <span class="me-3">📁 {{ task.Category | titlecase }}</span>
+            <span class="me-3">📅 {{ task.dueDate | date: 'mediumDate' }}</span>
+            <span>🏷️ {{ task.tags }}</span>
+          </small>
+        </div>
+        <div class="d-flex gap-2 ms-3 flex-shrink-0">
+          @if (!task.isDone) {
+            <button class="btn btn-sm btn-success" (click)="markDone()" title="Mark Done">
+              ✔ Done
+            </button>
+          } @else {
+            <button
+              class="btn btn-sm btn-outline-secondary"
+              (click)="markNotDone()"
+              title="Mark Pending"
+            >
+              ↩ Undo
+            </button>
+          }
+          <button class="btn btn-sm btn-outline-primary" (click)="startEdit()" title="Edit">
+            ✏️ Edit
+          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteTask()" title="Delete">
+            🗑 Delete
+          </button>
+        </div>
+      </div>
+    }
+
+    @if (isEditing) {
+      <div>
+        <h6 class="mb-3 text-primary">✏️ Editing Task</h6>
+        <div class="mb-2">
+          <label class="form-label">Title</label>
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="editCopy.title" />
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Description</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            [(ngModel)]="editCopy.description"
+          />
+        </div>
+        <div class="row g-2 mb-2">
+          <div class="col-sm-4">
+            <label class="form-label">Priority</label>
+            <select class="form-select form-select-sm" [(ngModel)]="editCopy.priority">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">Category</label>
+            <select class="form-select form-select-sm" [(ngModel)]="editCopy.Category">
+              <option value="work">Work</option>
+              <option value="personal">Personal</option>
+              <option value="study">Study</option>
+            </select>
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">Due Date</label>
+            <input
+              type="date"
+              class="form-control form-control-sm"
+              [(ngModel)]="editCopy.dueDate"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tags</label>
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="editCopy.tags" />
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-sm btn-primary" (click)="saveEdit()">💾 Save</button>
+          <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">✖ Cancel</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
