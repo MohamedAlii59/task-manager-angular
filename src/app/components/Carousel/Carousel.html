@@ -1,0 +1,12 @@
+<div class="container py-4">
+  <div class="carousel-box mx-auto position-relative">
+    <button class="prev" (click)="prev()">&#10094;</button>
+    <img [src]="index() + '.jpg'" alt="Slide {{ index() }}" />
+    <button class="next" (click)="next()">&#10095;</button>
+  </div>
+  <div class="dots text-center mt-2">
+    @for (item of arr; track item) {
+      <span class="dot" [class.active]="index() === item" (click)="goToSlide(item)"></span>
+    }
+  </div>
+</div>

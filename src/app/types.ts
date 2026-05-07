@@ -9,6 +9,14 @@ export interface Task {
   isDone: boolean;
 }
 
+export interface User {
+  id?: string;
+  username: string;
+  email: string;
+  bdate: string;
+  password: string;
+}
+
 export type error = {
   message: string;
   state: boolean;

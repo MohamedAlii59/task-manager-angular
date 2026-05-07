@@ -1,53 +1,47 @@
 import { Routes } from '@angular/router';
-import { Home } from './home/home';
-import { AddTask } from './add-task/add-task';
-import { AllTasks } from './all-tasks/all-tasks';
-import { Login } from './login/login';
-import { Signup } from './signup/signup';
-import { Root } from './root/root';
-import { Notfound } from './notfound/notfound';
+import { Main } from './layouts/main/main';
+import { Auth } from './layouts/auth/auth';
+import { Home } from './pages/home/home';
+import { AddTask } from './pages/add-task/add-task';
+import { Notfound } from './pages/notfound/notfound';
+import { Login } from './pages/login/login';
+import { Signup } from './pages/signup/signup';
+import { Tasks } from './pages/tasks/tasks';
+import { authguardGuard } from './guards/authguard-guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'root', pathMatch: 'full' },
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
   {
-    path: 'root',
-    component: Root,
+    path: 'main',
+    component: Main,
+    canActivate: [authguardGuard],
     children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { title: 'Home', path: 'home', component: Home },
+      { title: 'Add Task', path: 'add-task', component: AddTask },
       {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'prefix',
-      },
-      {
-        title: 'home',
-        path: 'home',
-        component: Home,
-      },
-      {
-        title: 'add task',
-        path: 'add-task',
-        component: AddTask,
-      },
-      {
-        title: 'All tasks',
-        path: 'all-tasks',
-        component: AllTasks,
+        title: 'Tasks',
+        path: 'tasks',
+        loadComponent: () => import('./pages/tasks/tasks').then((m) => m.Tasks),
       },
     ],
   },
-
   {
-    title: 'login',
-    path: 'login',
-    component: Login,
+    path: 'auth',
+    component: Auth,
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      {
+        title: 'Login',
+        path: 'login',
+        loadComponent: () => import('./pages/login/login').then((m) => m.Login),
+      },
+      {
+        title: 'Sign Up',
+        path: 'signup',
+        loadComponent: () => import('./pages/signup/signup').then((m) => m.Signup),
+      },
+    ],
   },
-  {
-    title: 'signup',
-    path: 'signup',
-    component: Signup,
-  },
-  {
-    path: '**',
-    component: Notfound,
-  },
+  { path: '**', component: Notfound },
 ];

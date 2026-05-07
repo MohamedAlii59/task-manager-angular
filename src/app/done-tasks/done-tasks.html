@@ -1,7 +1,0 @@
-@if (doneTasks.length === 0) {
-  <p class="text-muted text-center py-4">No completed tasks yet.</p>
-} @else {
-  @for (tsk of doneTasks; track tsk.id) {
-    <Task-card [task]="tsk" (taskDelete)="onDelete.emit($event)" />
-  }
-}

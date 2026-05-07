@@ -1,0 +1,24 @@
+{
+  "tasks": [
+    {
+      "id": "gKiIzAUL254",
+      "title": "task1",
+      "description": "dkdkdd",
+      "priority": "medium",
+      "dueDate": "2026-05-20",
+      "Category": "personal",
+      "tags": "dldk",
+      "isDone": false
+    }
+  ],
+  "users": [
+    {
+      "username": "mohamed",
+      "email": "mo@gmail.com",
+      "bdate": "2004-02-03",
+      "password": "moali123",
+      "id": "JUqirJZwDWg"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
