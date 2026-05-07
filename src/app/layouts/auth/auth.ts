@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-auth',
@@ -7,4 +8,10 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './auth.html',
   styleUrl: './auth.css',
 })
-export class Auth {}
+export class Auth {
+  location = inject(Location);
+
+  back() {
+    this.location.back();
+  }
+}
